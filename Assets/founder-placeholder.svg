@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="880" viewBox="0 0 720 880" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="86" y1="64" x2="634" y2="812" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B2650"/>
+      <stop offset="0.55" stop-color="#10203E"/>
+      <stop offset="1" stop-color="#0C1327"/>
+    </linearGradient>
+    <linearGradient id="halo" x1="190" y1="170" x2="538" y2="570" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5C79FF" stop-opacity="0.85"/>
+      <stop offset="0.5" stop-color="#7B52E5" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#16A4A1" stop-opacity="0.65"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="880" rx="44" fill="url(#bg)"/>
+  <circle cx="360" cy="288" r="150" fill="url(#halo)" opacity="0.2"/>
+  <circle cx="360" cy="286" r="112" fill="#111A34"/>
+  <path d="M360 214C390.376 214 415 238.624 415 269C415 299.376 390.376 324 360 324C329.624 324 305 299.376 305 269C305 238.624 329.624 214 360 214Z" fill="#D9E3FF" fill-opacity="0.82"/>
+  <path d="M220 584C220 493.425 293.425 420 384 420H336C426.575 420 500 493.425 500 584V642H220V584Z" fill="#D9E3FF" fill-opacity="0.82"/>
+  <rect x="108" y="700" width="504" height="20" rx="10" fill="#5C79FF" fill-opacity="0.5"/>
+  <rect x="178" y="748" width="364" height="16" rx="8" fill="#16A4A1" fill-opacity="0.42"/>
+  <text x="360" y="816" fill="#DDE6FF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle">Replace with founder photo</text>
+</svg>

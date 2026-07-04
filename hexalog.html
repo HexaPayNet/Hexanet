@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HexaLog | Logistics and Operations Management Software</title>
+  <meta name="description" content="HexaLog helps businesses manage logistics, coordination, workflow visibility, and operational control from one organized platform.">
+  <script>
+    document.documentElement.classList.add("js-enabled");
+  </script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+    :root {
+      --bg: #1b0210;
+      --bg-deep: #3a0521;
+      --bg-panel: rgba(42, 4, 24, 0.78);
+      --bg-panel-strong: rgba(60, 7, 34, 0.9);
+      --text: #f4f7ff;
+      --muted: #e1b1cc;
+      --line: rgba(255, 181, 221, 0.16);
+      --line-strong: rgba(255, 181, 221, 0.28);
+      --blue: #ff4ea7;
+      --purple: #e41880;
+      --teal: #ff7dbd;
+      --teal-soft: rgba(255, 125, 189, 0.16);
+      --purple-soft: rgba(228, 24, 128, 0.22);
+      --blue-soft: rgba(255, 78, 167, 0.18);
+      --shadow: 0 28px 90px rgba(27, 2, 16, 0.55);
+      --shadow-hover: 0 34px 110px rgba(27, 2, 16, 0.72);
+      --max-width: 1180px;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 16% 14%, rgba(255, 125, 189, 0.18), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(228, 24, 128, 0.28), transparent 20%),
+        radial-gradient(circle at 68% 72%, rgba(255, 181, 221, 0.14), transparent 22%),
+        linear-gradient(180deg, #1b0210 0%, #3a0521 34%, #7a0d46 68%, #e41880 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(12px);
+    }
+
+    body::before {
+      top: 100px;
+      right: -90px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(255, 125, 189, 0.28), rgba(255, 125, 189, 0));
+    }
+
+    body::after {
+      left: -100px;
+      bottom: 80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(228, 24, 128, 0.3), rgba(228, 24, 128, 0));
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 0 auto;
+      padding: 20px 0 80px;
+    }
+
+    .site-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.56;
+      background-image:
+        radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.75) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 18% 34%, rgba(255, 181, 221, 0.68) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 33% 16%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 47% 28%, rgba(255, 125, 189, 0.52) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 63% 12%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 80% 24%, rgba(255, 92, 170, 0.54) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 92% 18%, rgba(255, 255, 255, 0.74) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 11% 74%, rgba(255, 255, 255, 0.68) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 26% 88%, rgba(228, 24, 128, 0.58) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 44% 80%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 68% 84%, rgba(255, 125, 189, 0.5) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 88% 76%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.7px);
+    }
+
+    .backdrop-grid {
+      position: absolute;
+      inset: 120px -10% auto;
+      z-index: 0;
+      width: 120%;
+      height: 760px;
+      pointer-events: none;
+      border-radius: 48px;
+      opacity: 0.22;
+      background:
+        linear-gradient(rgba(255, 181, 221, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 92, 170, 0.12) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 88%);
+    }
+
+    .orb-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.9;
+    }
+
+    .orb.one {
+      top: 220px;
+      left: -80px;
+      width: 260px;
+      height: 260px;
+      --drift: 0.06;
+      background: radial-gradient(circle, rgba(255, 125, 189, 0.34), rgba(255, 125, 189, 0));
+    }
+
+    .orb.two {
+      top: 560px;
+      right: -20px;
+      width: 220px;
+      height: 220px;
+      --drift: 0.1;
+      background: radial-gradient(circle, rgba(228, 24, 128, 0.34), rgba(228, 24, 128, 0));
+    }
+
+    .orb.three {
+      top: 1080px;
+      left: 34%;
+      width: 180px;
+      height: 180px;
+      --drift: 0.08;
+      background: radial-gradient(circle, rgba(255, 181, 221, 0.22), rgba(255, 181, 221, 0));
+    }
+
+    .global-emblem-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, rgba(255, 125, 189, 0.24), transparent 20%),
+        radial-gradient(circle at center, rgba(228, 24, 128, 0.26), transparent 30%),
+        radial-gradient(circle at center, rgba(255, 181, 221, 0.18), transparent 40%),
+        url("Assets/Hexalog/HexaLog Emblem.png") center center / min(34vw, 430px) auto no-repeat;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      filter:
+        saturate(1.3)
+        brightness(1.16)
+        contrast(1.08)
+        drop-shadow(0 0 36px rgba(255, 125, 189, 0.34))
+        drop-shadow(0 0 72px rgba(228, 24, 128, 0.36))
+        drop-shadow(0 0 120px rgba(255, 181, 221, 0.22));
+      transition: opacity 220ms ease, filter 220ms ease;
+      animation: emblemGlow 14s ease-in-out infinite;
+    }
+
+    .global-emblem-bg::before,
+    .global-emblem-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("Assets/Hexalog/HexaLog Emblem.png") center center / min(34vw, 430px) auto no-repeat;
+      pointer-events: none;
+    }
+
+    .global-emblem-bg::before {
+      opacity: 0.34;
+      filter:
+        blur(18px)
+        saturate(1.5)
+        brightness(1.2)
+        drop-shadow(0 0 44px rgba(255, 125, 189, 0.34))
+        drop-shadow(0 0 80px rgba(228, 24, 128, 0.28));
+    }
+
+    .global-emblem-bg::after {
+      opacity: 0.18;
+      filter:
+        blur(34px)
+        saturate(1.8)
+        brightness(1.2)
+        drop-shadow(0 0 72px rgba(255, 92, 170, 0.28))
+        drop-shadow(0 0 120px rgba(228, 24, 128, 0.22));
+    }
+
+    @keyframes emblemGlow {
+      0%, 100% {
+        opacity: 0.24;
+        filter:
+          saturate(1.2)
+          brightness(1.1)
+          contrast(1.03)
+          drop-shadow(0 0 26px rgba(255, 125, 189, 0.26))
+          drop-shadow(0 0 54px rgba(228, 24, 128, 0.24))
+          drop-shadow(0 0 84px rgba(255, 181, 221, 0.18));
+      }
+
+      50% {
+        opacity: 0.3;
+        filter:
+          saturate(1.28)
+          brightness(1.16)
+          contrast(1.06)
+          drop-shadow(0 0 34px rgba(255, 125, 189, 0.32))
+          drop-shadow(0 0 72px rgba(228, 24, 128, 0.3))
+          drop-shadow(0 0 112px rgba(255, 181, 221, 0.2));
+      }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(7, 12, 26, 0.66);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(20px) saturate(150%);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(92, 121, 255, 0.16));
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.94rem;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ff4ea7, #e41880);
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 16px 34px rgba(228, 24, 128, 0.26);
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(228, 24, 128, 0.34);
+      filter: brightness(1.06);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(55, 4, 31, 0.86), rgba(130, 10, 74, 0.58));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(24px) saturate(145%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -20px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 125, 189, 0.2), rgba(255, 125, 189, 0));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(173, 196, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(123, 82, 229, 0.12);
+      color: #dfe6ff;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.85fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      max-width: 11ch;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--blue), var(--teal));
+      color: #ffffff;
+      box-shadow: 0 18px 38px rgba(92, 121, 255, 0.24);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      box-shadow: 0 22px 46px rgba(92, 121, 255, 0.32);
+      filter: brightness(1.06);
+    }
+
+    .btn-secondary {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(173, 196, 255, 0.3);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(18px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(15, 24, 47, 0.84), rgba(9, 14, 30, 0.58));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-panel-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(22, 164, 161, 0.14);
+      color: #cffff6;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .panel-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .panel-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .panel-card strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .panel-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .section {
+      position: relative;
+      margin-top: 30px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(10, 16, 34, 0.72), rgba(8, 12, 24, 0.5));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px) saturate(145%);
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading span {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(92, 121, 255, 0.12);
+      color: #dfe7ff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .section-heading p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .benefit-grid,
+    .feature-grid,
+    .why-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .benefit-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .why-grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      align-items: start;
+    }
+
+    .glass-card {
+      position: relative;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(18, 28, 55, 0.72), rgba(9, 14, 30, 0.44)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 20px 54px rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(20px) saturate(145%);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(173, 196, 255, 0.26);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .icon-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(92, 121, 255, 0.18), rgba(22, 164, 161, 0.16));
+      color: #dfe6ff;
+      font-size: 1.15rem;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card h3,
+    .glass-card h4 {
+      margin: 0;
+      font-size: 1.14rem;
+      letter-spacing: -0.03em;
+    }
+
+    .glass-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .check-list li::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Ccircle cx='11' cy='11' r='11' fill='%235c79ff' fill-opacity='0.2'/%3E%3Cpath d='M6.5 11.2L9.5 14.2L15.8 7.9' stroke='%237df3e8' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .overview-pane {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(17, 27, 52, 0.78), rgba(10, 16, 33, 0.56));
+      backdrop-filter: blur(18px);
+    }
+
+    .overview-pane strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #dbe4ff;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .overview-pane p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .download-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 22px;
+    }
+
+    .pricing-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(22, 16, 40, 0.82), rgba(8, 10, 22, 0.54)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 22px 72px rgba(5, 7, 18, 0.36);
+      backdrop-filter: blur(20px) saturate(150%);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(246, 81, 179, 0.34);
+      box-shadow: 0 28px 88px rgba(15, 8, 34, 0.44);
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(246, 81, 179, 0.38);
+      background:
+        linear-gradient(180deg, rgba(49, 17, 56, 0.9), rgba(15, 11, 34, 0.64)),
+        radial-gradient(circle at top, rgba(228, 24, 128, 0.22), transparent 58%);
+      box-shadow:
+        0 30px 96px rgba(56, 7, 38, 0.44),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .pricing-card.featured::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(180deg, rgba(255, 128, 204, 0.52), rgba(228, 24, 128, 0.14));
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 136, 204, 0.14);
+      border: 1px solid rgba(255, 136, 204, 0.22);
+      color: #ffd5ef;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pricing-card h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+    }
+
+    .plan-audience {
+      min-height: 72px;
+      margin: 12px 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: #ffffff;
+    }
+
+    .billing {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pricing-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pricing-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .pricing-list li::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Ccircle cx='11' cy='11' r='11' fill='%23e41880' fill-opacity='0.22'/%3E%3Cpath d='M6.5 11.2L9.5 14.2L15.8 7.9' stroke='%23ffd3ec' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .pricing-card .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    .pricing-note {
+      margin-top: 20px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .download-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(25, 38, 74, 0.84), rgba(9, 14, 30, 0.64)),
+        radial-gradient(circle at top right, rgba(92, 121, 255, 0.18), transparent 50%);
+      box-shadow: 0 24px 80px rgba(10, 14, 30, 0.42);
+      backdrop-filter: blur(20px);
+    }
+
+    .download-panel h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.04em;
+    }
+
+    .download-panel p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .download-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .trust-note {
+      margin-top: 14px;
+      color: #cfe5ff;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .requirements {
+      display: grid;
+      gap: 12px;
+    }
+
+    .requirements strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #dbe4ff;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .requirements ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .section-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    footer.section {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .footer-grid {
+      grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(180px, 0.6fr));
+      align-items: start;
+    }
+
+    .footer-grid h4 {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+    }
+
+    .footer-grid p,
+    .footer-grid a {
+      color: var(--muted);
+      line-height: 1.7;
+      text-decoration: none;
+    }
+
+    .footer-grid a:hover,
+    .footer-grid a:focus-visible {
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .scroll-reveal {
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    .js-enabled .scroll-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .js-enabled .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .why-grid,
+      .download-card,
+      .overview,
+      .pricing-grid,
+      .footer-grid,
+      .feature-grid,
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .topbar {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-shell {
+        width: min(calc(100% - 20px), var(--max-width));
+        padding-bottom: 44px;
+      }
+
+      .hero,
+      .section {
+        padding: 22px;
+      }
+
+      .hero-copy h1 {
+        max-width: none;
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .download-actions,
+      .section-cta {
+        flex-direction: column;
+      }
+
+      .btn,
+      .nav-cta {
+        width: 100%;
+      }
+
+      .plan-audience {
+        min-height: 0;
+      }
+
+      .brand img {
+        width: 46px;
+        height: 46px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      body::before,
+      body::after,
+      .global-emblem-bg,
+      .backdrop-grid,
+      .orb,
+      .scroll-reveal,
+      .glass-card,
+      .pricing-card,
+      .btn,
+      .nav-cta {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+      }
+
+      .js-enabled .scroll-reveal {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="global-emblem-bg" aria-hidden="true"></div>
+  <main class="site-shell" id="top">
+    <div class="backdrop-grid" aria-hidden="true"></div>
+    <div class="orb-layer" aria-hidden="true">
+      <span class="orb one"></span>
+      <span class="orb two"></span>
+      <span class="orb three"></span>
+    </div>
+
+    <header class="topbar scroll-reveal">
+      <a class="brand" href="hexalog.html">
+        <img src="Assets/Hexalog/HexaLog Emblem.png" alt="HexaLog logo">
+        <span class="brand-copy">
+          <strong>HexaLog</strong>
+          <span>Logistics and operations software</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Hexa Network</a>
+        <a href="#top">HexaLog</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#why">Why HexaLog</a>
+        <a href="#download">Download</a>
+      </nav>
+
+      <a class="nav-cta" href="#pricing">View Pricing</a>
+    </header>
+
+    <section class="hero scroll-reveal" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Built for operational coordination</div>
+          <h1 id="hero-title">Logistics and operations made easier to manage</h1>
+          <p>
+            Coordinate workflows, track operational activity, manage logistics visibility, and keep reporting organized from one clean desktop platform built for businesses that need control and efficiency.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/downloads/HexaLog-Setup.exe">Download Setup</a>
+            <a class="btn btn-secondary" href="#pricing">View Pricing</a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="metric">
+              <strong>One organized operations workspace</strong>
+              <span>Coordination, workflow oversight, reporting, and setup in one desktop experience.</span>
+            </div>
+            <div class="metric">
+              <strong>Built for moving teams</strong>
+              <span>Support day-to-day coordination with more structure, visibility, and operational discipline.</span>
+            </div>
+            <div class="metric">
+              <strong>Ready for real environments</strong>
+              <span>Designed for businesses that need reliable workflow control without unnecessary complexity.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Platform summary">
+          <span class="hero-panel-label">What HexaLog Covers</span>
+          <div class="panel-stack">
+            <div class="panel-card">
+              <strong>Logistics tracking</strong>
+              <span>Keep operational movement, coordination, and workflow activity easier to follow.</span>
+            </div>
+            <div class="panel-card">
+              <strong>Workflow coordination</strong>
+              <span>Bring operational tasks and internal processes into a more organized working flow.</span>
+            </div>
+            <div class="panel-card">
+              <strong>Operational visibility</strong>
+              <span>Move from fragmented coordination to a more controlled, report-ready operations environment.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" aria-labelledby="benefits-title">
+      <div class="section-heading">
+        <span>Product Benefits</span>
+        <h2 id="benefits-title">A cleaner way to manage logistics and daily operations</h2>
+        <p>
+          HexaLog helps teams replace fragmented coordination, manual workflow tracking, and operational guesswork with a more structured way of working.
+        </p>
+      </div>
+
+      <div class="benefit-grid">
+        <article class="glass-card">
+          <div class="icon-chip">01</div>
+          <h3>Reduce coordination gaps</h3>
+          <p>Keep logistics activity and workflow steps visible so teams spend less time chasing updates and reconciling disconnected information.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">02</div>
+          <h3>Improve workflow consistency</h3>
+          <p>Standardize how operational work is tracked and coordinated as the business becomes more active and complex.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">03</div>
+          <h3>Stay ready for scale</h3>
+          <p>Start with core coordination today and support more advanced oversight and larger operational workflows as your business grows.</p>
+        </article>
+      </div>
+
+      <div class="overview">
+        <div class="overview-pane">
+          <strong>Product Overview</strong>
+          <p>
+            HexaLog is an operations and logistics platform designed for businesses that want modern software without a heavy or confusing setup. It gives teams one place to coordinate workflow activity, monitor movement, and improve operational efficiency.
+          </p>
+        </div>
+
+        <div class="overview-pane">
+          <strong>Built for daily use</strong>
+          <p>
+            The interface is made to feel practical, reliable, and easy to onboard. That means less guesswork for operations teams and a smoother setup for businesses that need software they can trust.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="features" aria-labelledby="features-title">
+      <div class="section-heading">
+        <span>Features</span>
+        <h2 id="features-title">Everything teams need to coordinate operations with confidence</h2>
+        <p>
+          HexaLog brings the core tools businesses need into one straightforward operations workflow.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="glass-card">
+          <div class="icon-chip">TR</div>
+          <h4>Tracking visibility</h4>
+          <p>Keep logistics activity and operational status easier to monitor from one control point.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">CO</div>
+          <h4>Coordination workflows</h4>
+          <p>Bring day-to-day operational movement into a more structured workflow process.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">WF</div>
+          <h4>Workflow efficiency</h4>
+          <p>Improve how tasks and processes move across teams and operating environments.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">OP</div>
+          <h4>Operational oversight</h4>
+          <p>See what is happening across workflows with more clarity and less manual follow-up.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">LG</div>
+          <h4>Log activity</h4>
+          <p>Keep cleaner records of key logistics and process events for review and accountability.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">TM</div>
+          <h4>Team coordination</h4>
+          <p>Help teams stay aligned as operational responsibilities spread across the business.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">RV</div>
+          <h4>Review visibility</h4>
+          <p>Check operational patterns and workflow movement more easily when accountability matters.</p>
+        </article>
+
+        <article class="glass-card">
+          <div class="icon-chip">RE</div>
+          <h4>Reports and exports</h4>
+          <p>Export operations information in formats teams can use for reporting and decision-making.</p>
+        </article>
+      </div>
+
+      <div class="section-cta">
+        <a class="btn btn-secondary" href="#pricing">View Pricing</a>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="why" aria-labelledby="why-title">
+      <div class="section-heading">
+        <span>Why HexaLog</span>
+        <h2 id="why-title">Made for businesses that want smoother coordination, clearer oversight, and better workflow discipline</h2>
+        <p>
+          HexaLog is for teams that want operations software to feel clear and dependable, not heavy or overcomplicated.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div class="glass-card">
+          <h3>Why teams choose HexaLog</h3>
+          <ul class="check-list">
+            <li>Simple enough for teams that need to improve operational tracking quickly.</li>
+            <li>Structured enough for growing businesses that need better coordination and process visibility.</li>
+            <li>Designed to feel modern, organized, and practical for everyday operations work.</li>
+            <li>Suitable for businesses that want desktop reliability with room for more advanced deployment later.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Flexible for different operating models</h3>
+          <p>From smaller teams to larger operational environments, HexaLog gives businesses a path from basic coordination to more controlled workflow management.</p>
+          <div class="section-cta">
+            <a class="btn btn-primary" href="#pricing">View Pricing</a>
+            <a class="btn btn-secondary" href="#download">Download Setup</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="pricing" aria-labelledby="pricing-title">
+      <div class="section-heading">
+        <span>Pricing</span>
+        <h2 id="pricing-title">Simple pricing for operations teams at every stage of growth</h2>
+        <p>
+          Start with the plan that matches your current workflow and move up as your teams, locations, and coordination needs become more advanced.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <h3>Starter</h3>
+          <p class="plan-audience">For small teams that need a cleaner way to track logistics activity and coordinate day-to-day workflows.</p>
+          <div class="price-line">
+            <span class="price">KES 2,400</span>
+            <span class="billing">per month</span>
+          </div>
+          <ul class="pricing-list">
+            <li>Basic activity logging</li>
+            <li>Core workflow tracking</li>
+            <li>Simple team coordination tools</li>
+            <li>Basic reports and exports</li>
+            <li>Single-location desktop setup</li>
+            <li>One admin user</li>
+          </ul>
+          <a class="btn btn-secondary" href="#download">Get Started</a>
+        </article>
+
+        <article class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <h3>Growth</h3>
+          <p class="plan-audience">For growing businesses that need stronger controls, better visibility, and smoother multi-user coordination.</p>
+          <div class="price-line">
+            <span class="price">KES 6,900</span>
+            <span class="billing">per month</span>
+          </div>
+          <ul class="pricing-list">
+            <li>Everything in Starter</li>
+            <li>Multi-user access</li>
+            <li>Role-based permissions</li>
+            <li>Workflow approvals</li>
+            <li>Audit logs</li>
+            <li>Excel and PDF exports</li>
+            <li>Backup tools</li>
+            <li>LAN or hosted backend support</li>
+          </ul>
+          <a class="btn btn-primary" href="#download">Start Growing</a>
+        </article>
+
+        <article class="pricing-card">
+          <h3>Enterprise</h3>
+          <p class="plan-audience">For larger operations teams that need advanced oversight, deployment flexibility, and stronger reporting support.</p>
+          <div class="price-line">
+            <span class="price">KES 15,900</span>
+            <span class="billing">per month</span>
+          </div>
+          <ul class="pricing-list">
+            <li>Everything in Growth</li>
+            <li>Advanced workflow controls</li>
+            <li>Remote access support</li>
+            <li>Automated backups and restore tools</li>
+            <li>Priority onboarding support</li>
+            <li>Custom operational reports</li>
+            <li>API and integration readiness</li>
+            <li>Multi-site deployment guidance</li>
+          </ul>
+          <a class="btn btn-secondary" href="index.html#contact">Contact Sales</a>
+        </article>
+      </div>
+
+      <p class="pricing-note">Annual billing discounts and deployment onboarding are available for larger teams and multi-site environments.</p>
+    </section>
+
+    <section class="section scroll-reveal" id="download" aria-labelledby="download-title">
+      <div class="section-heading">
+        <span>Download</span>
+        <h2 id="download-title">Download HexaLog and get set up quickly</h2>
+        <p>
+          Start with a straightforward Windows installation and get your operations workflow running with a setup path that is easy to understand.
+        </p>
+      </div>
+
+      <div class="download-card">
+        <div class="download-panel">
+          <h3>HexaLog Desktop Setup</h3>
+          <p>
+            Download the installer, complete setup on your Windows machine, and start coordinating logistics, workflow activity, and operational reporting from one central workspace.
+          </p>
+
+          <div class="download-actions">
+            <a class="btn btn-primary" href="/downloads/HexaLog-Setup.exe">Download for Windows</a>
+            <a class="btn btn-secondary" href="#pricing">View Pricing</a>
+          </div>
+
+          <p class="trust-note">
+            Fast desktop installation. Built for operations teams and growing businesses that need a more dependable workflow.
+          </p>
+        </div>
+
+        <div class="glass-card requirements">
+          <div>
+            <strong>Install Notes</strong>
+            <ul>
+              <li>Windows 10 or Windows 11 recommended.</li>
+              <li>Use administrator permissions during installation if required by your environment.</li>
+              <li>For team deployments, confirm your preferred local, LAN, or hosted setup approach first.</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong>Deployment notes</strong>
+            <ul>
+              <li>Confirm your workflow structure and reporting needs before rollout.</li>
+              <li>Plan operational roles and coordination responsibilities before going live.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="section scroll-reveal">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="hexalog.html">
+            <img src="Assets/Hexalog/HexaLog Emblem.png" alt="HexaLog logo">
+            <span class="brand-copy">
+              <strong>HexaLog</strong>
+              <span>Logistics and operations software</span>
+            </span>
+          </a>
+          <p>
+            HexaLog helps businesses manage logistics and operations with a cleaner desktop experience built for real teams and real workflows.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#why">Why HexaLog</a>
+            <a href="#download">Download</a>
+            <a href="index.html">Hexa Network</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Quick Actions</h4>
+          <div class="footer-links">
+            <a href="/downloads/HexaLog-Setup.exe">Download Setup</a>
+            <a href="#pricing">View Pricing</a>
+            <a href="#top">Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reveals = document.querySelectorAll(".scroll-reveal");
+
+      if (!reduceMotion && reveals.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: "0px 0px -10% 0px"
+        });
+
+        reveals.forEach((element) => observer.observe(element));
+      } else {
+        reveals.forEach((element) => element.classList.add("is-visible"));
+      }
+    })();
+  </script>
+</body>
+</html>

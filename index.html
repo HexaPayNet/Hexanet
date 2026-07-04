@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexa Network | Business Software for Every Stage of Growth</title>
+  <meta name="description" content="Hexa Network builds practical business software for organizations of every size, from payroll and attendance to logistics and operations.">
+  <script>
+    document.documentElement.classList.add("js-enabled");
+  </script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+    :root {
+      --bg: #fffaf3;
+      --bg-deep: #f7f2ff;
+      --bg-panel: rgba(255, 255, 255, 0.72);
+      --bg-panel-strong: rgba(255, 255, 255, 0.9);
+      --text: #1f2240;
+      --muted: #6b7092;
+      --line: rgba(96, 102, 160, 0.14);
+      --line-strong: rgba(96, 102, 160, 0.24);
+      --blue: #4f7dff;
+      --purple: #7b52e5;
+      --magenta: #ff4fd8;
+      --cyan: #28d8ff;
+      --orange: #ff8b38;
+      --yellow: #ffd84d;
+      --teal: #1ed7c6;
+      --teal-soft: rgba(30, 215, 198, 0.18);
+      --purple-soft: rgba(123, 82, 229, 0.18);
+      --blue-soft: rgba(79, 125, 255, 0.18);
+      --magenta-soft: rgba(255, 79, 216, 0.18);
+      --orange-soft: rgba(255, 139, 56, 0.18);
+      --yellow-soft: rgba(255, 216, 77, 0.16);
+      --cyan-soft: rgba(40, 216, 255, 0.18);
+      --shadow: 0 24px 80px rgba(83, 58, 140, 0.12);
+      --shadow-hover: 0 28px 90px rgba(83, 58, 140, 0.18);
+      --max-width: 1180px;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255, 79, 216, 0.14), transparent 22%),
+        radial-gradient(circle at 22% 78%, rgba(255, 216, 77, 0.12), transparent 18%),
+        radial-gradient(circle at 86% 10%, rgba(79, 125, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 76% 72%, rgba(255, 139, 56, 0.12), transparent 20%),
+        radial-gradient(circle at 58% 34%, rgba(40, 216, 255, 0.11), transparent 18%),
+        radial-gradient(circle at 66% 82%, rgba(123, 82, 229, 0.13), transparent 22%),
+        linear-gradient(180deg, #fffdf8 0%, #fbf8ff 34%, #f8fbff 68%, #fff9f1 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(12px);
+    }
+
+    body::before {
+      top: 100px;
+      right: -90px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(255, 79, 216, 0.26), rgba(255, 79, 216, 0));
+    }
+
+    body::after {
+      left: -100px;
+      bottom: 80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(255, 216, 77, 0.18), rgba(255, 216, 77, 0));
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 0 auto;
+      padding: 20px 0 80px;
+    }
+
+    .site-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+      background-image:
+        radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 18% 34%, rgba(40, 216, 255, 0.42) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 33% 16%, rgba(255, 255, 255, 0.62) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 47% 28%, rgba(123, 82, 229, 0.56) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 63% 12%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 80% 24%, rgba(255, 139, 56, 0.56) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 92% 18%, rgba(255, 255, 255, 0.66) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 11% 74%, rgba(255, 255, 255, 0.62) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 26% 88%, rgba(255, 216, 77, 0.62) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 44% 80%, rgba(255, 255, 255, 0.62) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 68% 84%, rgba(255, 79, 216, 0.56) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 88% 76%, rgba(255, 255, 255, 0.62) 0 1px, transparent 1.7px);
+    }
+
+    .backdrop-grid {
+      position: absolute;
+      inset: 120px -10% auto;
+      z-index: 0;
+      width: 120%;
+      height: 760px;
+      pointer-events: none;
+      border-radius: 48px;
+      opacity: 0.14;
+      background:
+        linear-gradient(rgba(255, 79, 216, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40, 216, 255, 0.12) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 88%);
+    }
+
+    .orb-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.9;
+    }
+
+    .orb.one {
+      top: 220px;
+      left: -80px;
+      width: 260px;
+      height: 260px;
+      --drift: 0.06;
+      background: radial-gradient(circle, rgba(255, 79, 216, 0.26), rgba(255, 79, 216, 0));
+    }
+
+    .orb.two {
+      top: 560px;
+      right: -20px;
+      width: 220px;
+      height: 220px;
+      --drift: 0.1;
+      background: radial-gradient(circle, rgba(40, 216, 255, 0.26), rgba(40, 216, 255, 0));
+    }
+
+    .orb.three {
+      top: 1080px;
+      left: 34%;
+      width: 180px;
+      height: 180px;
+      --drift: 0.08;
+      background: radial-gradient(circle, rgba(255, 139, 56, 0.22), rgba(255, 139, 56, 0));
+    }
+
+    .global-emblem-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, rgba(255, 79, 216, 0.22), transparent 18%),
+        radial-gradient(circle at center, rgba(40, 216, 255, 0.18), transparent 28%),
+        radial-gradient(circle at center, rgba(123, 82, 229, 0.22), transparent 36%),
+        radial-gradient(circle at center, rgba(255, 216, 77, 0.12), transparent 46%),
+        url("Assets/Hexa Network/Hexa Emblem.png") center center / min(34vw, 430px) auto no-repeat;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      filter:
+        saturate(1.3)
+        brightness(1.16)
+        contrast(1.08)
+        drop-shadow(0 0 32px rgba(255, 79, 216, 0.34))
+        drop-shadow(0 0 68px rgba(123, 82, 229, 0.32))
+        drop-shadow(0 0 98px rgba(40, 216, 255, 0.24))
+        drop-shadow(0 0 136px rgba(255, 139, 56, 0.18));
+      transition: opacity 220ms ease, filter 220ms ease;
+      animation: emblemGlow 14s ease-in-out infinite;
+    }
+
+    .global-emblem-bg::before,
+    .global-emblem-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("Assets/Hexa Network/Hexa Emblem.png") center center / min(34vw, 430px) auto no-repeat;
+      pointer-events: none;
+    }
+
+    .global-emblem-bg::before {
+      opacity: 0.34;
+      filter:
+        blur(18px)
+        saturate(1.5)
+        brightness(1.2)
+        drop-shadow(0 0 38px rgba(255, 79, 216, 0.34))
+        drop-shadow(0 0 76px rgba(123, 82, 229, 0.28));
+    }
+
+    .global-emblem-bg::after {
+      opacity: 0.18;
+      filter:
+        blur(34px)
+        saturate(1.8)
+        brightness(1.2)
+        drop-shadow(0 0 72px rgba(40, 216, 255, 0.26))
+        drop-shadow(0 0 120px rgba(255, 216, 77, 0.18));
+    }
+
+    @keyframes emblemGlow {
+      0%, 100% {
+        opacity: 0.24;
+        filter:
+          saturate(1.2)
+          brightness(1.1)
+          contrast(1.03)
+          drop-shadow(0 0 26px rgba(255, 79, 216, 0.26))
+          drop-shadow(0 0 54px rgba(123, 82, 229, 0.22))
+          drop-shadow(0 0 84px rgba(40, 216, 255, 0.18));
+      }
+
+      50% {
+        opacity: 0.3;
+        filter:
+          saturate(1.28)
+          brightness(1.16)
+          contrast(1.06)
+          drop-shadow(0 0 32px rgba(255, 79, 216, 0.34))
+          drop-shadow(0 0 72px rgba(123, 82, 229, 0.28))
+          drop-shadow(0 0 112px rgba(255, 216, 77, 0.2));
+      }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 18px 50px rgba(91, 70, 140, 0.1);
+      backdrop-filter: blur(20px) saturate(150%);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(92, 121, 255, 0.16));
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.94rem;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--magenta), var(--purple) 35%, var(--blue) 68%, var(--cyan));
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 16px 34px rgba(255, 79, 216, 0.18);
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(123, 82, 229, 0.24);
+      filter: brightness(1.06);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(249, 244, 255, 0.72));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(24px) saturate(145%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -20px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 79, 216, 0.18), rgba(255, 79, 216, 0));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(173, 196, 255, 0.12);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 79, 216, 0.12), rgba(123, 82, 229, 0.12), rgba(40, 216, 255, 0.12));
+      color: #6c38b8;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.85fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      max-width: 11ch;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 14px 20px;
+      cursor: pointer;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--magenta), var(--purple) 34%, var(--orange) 68%, var(--yellow));
+      color: #ffffff;
+      box-shadow: 0 18px 38px rgba(255, 79, 216, 0.2);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      box-shadow: 0 22px 46px rgba(255, 139, 56, 0.24);
+      filter: brightness(1.06);
+    }
+
+    .btn-secondary {
+      border-color: rgba(96, 102, 160, 0.18);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(173, 196, 255, 0.3);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(18px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(247, 241, 255, 0.7));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-panel-label {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 216, 77, 0.14), rgba(255, 139, 56, 0.14), rgba(255, 79, 216, 0.14));
+      color: #8a4f12;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .panel-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .panel-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .panel-card strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .panel-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .section {
+      position: relative;
+      margin-top: 30px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(250, 246, 255, 0.72));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px) saturate(145%);
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading span {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(123, 82, 229, 0.12), rgba(40, 216, 255, 0.12), rgba(255, 79, 216, 0.12));
+      color: #dfe7ff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .section-heading p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .benefit-grid,
+    .feature-grid,
+    .why-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .benefit-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .why-grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      align-items: start;
+    }
+
+    .glass-card {
+      position: relative;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(247, 242, 255, 0.74)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.42));
+      box-shadow: 0 20px 54px rgba(83, 58, 140, 0.1);
+      backdrop-filter: blur(20px) saturate(145%);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(173, 196, 255, 0.26);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .icon-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 79, 216, 0.18), rgba(123, 82, 229, 0.16), rgba(40, 216, 255, 0.18), rgba(255, 216, 77, 0.16));
+      color: #dfe6ff;
+      font-size: 1.15rem;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card h3,
+    .glass-card h4 {
+      margin: 0;
+      font-size: 1.14rem;
+      letter-spacing: -0.03em;
+    }
+
+    .glass-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .check-list li::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Ccircle cx='11' cy='11' r='11' fill='%23ff4fd8' fill-opacity='0.18'/%3E%3Cpath d='M6.5 11.2L9.5 14.2L15.8 7.9' stroke='%2328d8ff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .overview-pane {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 243, 255, 0.74));
+      backdrop-filter: blur(18px);
+    }
+
+    .overview-pane strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #dbe4ff;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .overview-pane p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .download-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .download-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 248, 255, 0.9), rgba(255, 251, 245, 0.8)),
+        radial-gradient(circle at top right, rgba(255, 79, 216, 0.18), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(255, 216, 77, 0.12), transparent 46%);
+      box-shadow: 0 24px 80px rgba(83, 58, 140, 0.12);
+      backdrop-filter: blur(20px);
+    }
+
+    .download-panel h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.04em;
+    }
+
+    .download-panel p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .download-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .trust-note {
+      margin-top: 14px;
+      color: #5d4aa2;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .requirements {
+      display: grid;
+      gap: 12px;
+    }
+
+    .requirements strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #dbe4ff;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .requirements ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .section-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    footer.section {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .footer-grid {
+      grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(180px, 0.6fr));
+      align-items: start;
+    }
+
+    .footer-grid h4 {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+    }
+
+    .footer-grid p,
+    .footer-grid a {
+      color: var(--muted);
+      line-height: 1.7;
+      text-decoration: none;
+    }
+
+    .footer-grid a:hover,
+    .footer-grid a:focus-visible {
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .product-card .icon-chip {
+      width: 56px;
+      height: 56px;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .product-card {
+      text-align: center;
+    }
+
+    .product-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      margin-bottom: 16px;
+    }
+
+    .product-logo img {
+      display: block;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(123, 82, 229, 0.12));
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      justify-content: center;
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+      gap: 22px;
+      align-items: center;
+    }
+
+    .founder-photo {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(16, 24, 48, 0.88), rgba(9, 14, 30, 0.6));
+      box-shadow: var(--shadow);
+    }
+
+    .founder-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .founder-copy .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .founder-copy h3 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: -0.04em;
+    }
+
+    .founder-copy .role {
+      display: block;
+      margin-top: 6px;
+      color: #5a2ca0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .founder-message {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #dbe4ff;
+      font-size: 0.95rem;
+    }
+
+    .contact-item span,
+    .contact-item a {
+      color: var(--muted);
+      line-height: 1.65;
+      text-decoration: none;
+    }
+
+    .contact-item a:hover,
+    .contact-item a:focus-visible {
+      color: var(--text);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: #dbe4ff;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--text);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #8290b3;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(255, 79, 216, 0.42);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 0 4px rgba(40, 216, 255, 0.12);
+    }
+
+    .field textarea {
+      min-height: 148px;
+      resize: vertical;
+    }
+
+    .scroll-reveal {
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    .js-enabled .scroll-reveal {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .js-enabled .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .why-grid,
+      .download-card,
+      .contact-grid,
+      .founder-grid,
+      .overview,
+      .footer-grid,
+      .feature-grid,
+      .benefit-grid,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .topbar {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-shell {
+        width: min(calc(100% - 20px), var(--max-width));
+        padding-bottom: 44px;
+      }
+
+      .hero,
+      .section {
+        padding: 22px;
+      }
+
+      .hero-copy h1 {
+        max-width: none;
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .download-actions,
+      .section-cta {
+        flex-direction: column;
+      }
+
+      .btn,
+      .nav-cta {
+        width: 100%;
+      }
+
+      .brand img {
+        width: 46px;
+        height: 46px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      body::before,
+      body::after,
+      .global-emblem-bg,
+      .backdrop-grid,
+      .orb,
+      .scroll-reveal,
+      .glass-card,
+      .btn,
+      .nav-cta {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+      }
+
+      .js-enabled .scroll-reveal {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="global-emblem-bg" aria-hidden="true"></div>
+  <main class="site-shell" id="top">
+    <div class="backdrop-grid" aria-hidden="true"></div>
+    <div class="orb-layer" aria-hidden="true">
+      <span class="orb one"></span>
+      <span class="orb two"></span>
+      <span class="orb three"></span>
+    </div>
+
+    <header class="topbar scroll-reveal">
+      <a class="brand" href="index.html">
+        <img src="Assets/Hexa Network/Hexa Emblem.png" alt="Hexa Network logo">
+        <span class="brand-copy">
+          <strong>Hexa Network</strong>
+          <span>Business software for every stage</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#top">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="hexapay.html">HexaPay</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="nav-cta" href="#products">Explore Products</a>
+    </header>
+
+    <section class="hero scroll-reveal" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Hexa Network ecosystem</div>
+          <h1 id="hero-title">Software that helps businesses operate with confidence</h1>
+          <p>
+            Hexa Network builds modern business software for companies of every size, from payroll and operations to attendance and workflow coordination, with products designed to be practical, scalable, and ready for real teams.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">Explore Products</a>
+            <a class="btn btn-secondary" href="#contact">Contact Us</a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="metric">
+              <strong>Built for any scale</strong>
+              <span>Products made for growing teams, established businesses, and complex operations.</span>
+            </div>
+            <div class="metric">
+              <strong>Practical by design</strong>
+              <span>Software focused on clarity, reliability, and useful day-to-day workflows.</span>
+            </div>
+            <div class="metric">
+              <strong>One ecosystem</strong>
+              <span>Connected products under one brand language for operations, payroll, and workforce control.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Company focus">
+          <span class="hero-panel-label">What Hexa Network Builds</span>
+          <div class="panel-stack">
+            <div class="panel-card">
+              <strong>Workforce systems</strong>
+              <span>Tools for attendance, payroll, team structure, and the operational routines businesses rely on every day.</span>
+            </div>
+            <div class="panel-card">
+              <strong>Operations software</strong>
+              <span>Platforms that help businesses coordinate people, workflows, logistics, and internal movement more effectively.</span>
+            </div>
+            <div class="panel-card">
+              <strong>Scalable SaaS thinking</strong>
+              <span>Products designed to be simple enough to adopt quickly and structured enough to support serious growth.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="about" aria-labelledby="about-title">
+      <div class="section-heading">
+        <span>About</span>
+        <h2 id="about-title">About Hexa Network</h2>
+        <p>
+          Hexa Network is a company that makes SaaS for businesses of any scale. We build software that helps organizations operate more clearly, manage critical workflows with confidence, and adopt better systems without unnecessary complexity. Our focus is on practical, premium business tools that create real operational value.
+        </p>
+      </div>
+
+      <div class="overview">
+        <div class="overview-pane">
+          <strong>Why we exist</strong>
+          <p>
+            Businesses need software that feels dependable, modern, and ready for actual work. Hexa Network creates products that simplify processes, improve visibility, and help teams move with more structure as they grow.
+          </p>
+        </div>
+
+        <div class="overview-pane">
+          <strong>How we build</strong>
+          <p>
+            We combine clean product design, strong operational thinking, and scalable software architecture so our tools feel useful from day one and continue to support larger, more demanding environments over time.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="products" aria-labelledby="products-title">
+      <div class="section-heading">
+        <span>Our Products</span>
+        <h2 id="products-title">A growing ecosystem of business software</h2>
+        <p>
+          Hexa Network products are built to solve practical business problems across workforce management, operations, and payroll.
+        </p>
+      </div>
+
+      <div class="product-grid">
+        <article class="glass-card product-card">
+          <div class="product-logo">
+            <img src="Assets/HexaWeight/logo(emblem).png" alt="HexaWeight emblem">
+          </div>
+          <h3>HexaWeight</h3>
+          <p>A weight management system for businesses and organizations to capture weighing activity, records, and reporting efficiently.</p>
+          <div class="product-actions">
+            <a class="btn btn-primary" href="hexaweight.html">Download HexaWeight</a>
+          </div>
+        </article>
+
+        <article class="glass-card product-card">
+          <div class="product-logo">
+            <img src="Assets/Hexalog/HexaLog Emblem.png" alt="HexaLog emblem">
+          </div>
+          <h3>HexaLog</h3>
+          <p>A logistics and operations management system for tracking, coordination, and workflow efficiency.</p>
+          <div class="product-actions">
+            <a class="btn btn-primary" href="hexalog.html">Download HexaLog</a>
+          </div>
+        </article>
+
+        <article class="glass-card product-card">
+          <div class="product-logo">
+            <img src="Assets/HexaPay/HexaPayEMBLEM.png" alt="HexaPay emblem">
+          </div>
+          <h3>HexaPay</h3>
+          <p>A payroll and payment management system for handling salaries, deductions, and business payroll operations.</p>
+          <div class="product-actions">
+            <a class="btn btn-primary" href="hexapay.html">Open HexaPay</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" aria-labelledby="founder-title">
+      <div class="section-heading">
+        <span>Founder's Note</span>
+        <h2 id="founder-title">A word from the founder</h2>
+      </div>
+
+      <div class="founder-grid">
+        <div class="founder-photo">
+          <img src="Assets/WhatsApp Image 2026-07-04 at 1.53.08 PM.jpeg" alt="Founder image placeholder">
+        </div>
+
+        <div class="glass-card founder-copy">
+          <div class="eyebrow">Leadership</div>
+          <h3>Fortune Omondi</h3>
+          <span class="role">CEO &amp; Founder</span>
+          <p class="founder-message">
+            We started Hexa Network with a simple belief: businesses deserve softwares that helps them run smarter, grow faster, and operate with confidence. Our mission is to build practical systems that remove friction from everyday work, strengthen decision-making, and give Africa and global businesses the digital tools they need to move forward with clarity. We are not building softwares for show. We are building softwares for the real pace, pressure, and ambition of modern business.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-reveal" id="contact" aria-labelledby="contact-title">
+      <div class="section-heading">
+        <span>Contact</span>
+        <h2 id="contact-title">Contact Us</h2>
+        <p>
+          Reach out to learn more about Hexa Network, our products, partnerships, or deployment options for your business.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="glass-card">
+          <h3>Contact Details</h3>
+          <div class="contact-list">
+            <div class="contact-item">
+              <strong>Email</strong>
+              <a href="mailto:hello@hexanetwork.co">hello@hexanetwork.co</a>
+            </div>
+            <div class="contact-item">
+              <strong>Phone</strong>
+              <a href="tel:+254700000000">+254 700 000 000</a>
+            </div>
+            <div class="contact-item">
+              <strong>Company</strong>
+              <span>Hexa Network Ltd</span>
+            </div>
+            <div class="contact-item">
+              <strong>Office</strong>
+              <span>Nairobi, Kenya</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3>Send a message</h3>
+          <form class="contact-form" action="#" method="post">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com">
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us about your business or what you need."></textarea>
+            </div>
+            <div class="section-cta">
+              <button class="btn btn-primary" type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="section scroll-reveal">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <img src="Assets/Hexa Network/Hexa Emblem.png" alt="Hexa Network logo">
+            <span class="brand-copy">
+              <strong>Hexa Network</strong>
+              <span>Business software for every stage</span>
+            </span>
+          </a>
+          <p>
+            Hexa Network builds practical software for businesses that want stronger systems, better coordination, and room to scale with confidence.
+          </p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact</a>
+            <a href="hexapay.html">HexaPay</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Products</h4>
+          <div class="footer-links">
+            <a href="hexaweight.html">HexaWeight</a>
+            <a href="hexalog.html">HexaLog</a>
+            <a href="hexapay.html">HexaPay</a>
+            <a href="pricing.html">HexaPay Pricing</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reveals = document.querySelectorAll(".scroll-reveal");
+      if (!reduceMotion && reveals.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: "0px 0px -10% 0px"
+        });
+
+        reveals.forEach((element) => observer.observe(element));
+      } else {
+        reveals.forEach((element) => element.classList.add("is-visible"));
+      }
+
+    })();
+  </script>
+</body>
+</html>
