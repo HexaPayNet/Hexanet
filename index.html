@@ -1332,8 +1332,7 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     const message = document.getElementById("message").value.trim();
 
     const to = "networkshexa@gmail.com";
-    const subject = encodeURIComponent("Website Contact Form");
-
+   const subject = encodeURIComponent(`Hexa Network Website Inquiry from ${name}`);
     const body = encodeURIComponent(
 `Name: ${name}
 
