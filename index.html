@@ -1344,8 +1344,16 @@ ${message}`
 
     const gmailUrl =
 `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+  
+const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
 
+if (isMobile) {
+    const mailto =
+        `mailto:${to}?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
+} else {
     window.open(gmailUrl, "_blank");
+}
 });
 </script>
         </div>
